@@ -1,0 +1,79 @@
+﻿@model SchoolPCScanner.Models.TerminationRegistration
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3>Registratie van stopzetting bewerken</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" id="confirmationResult" name="confirmationResult" value="" />
+            <div class="form-group">
+                <label asp-for="Device.Serienumber" class="control-label"></label>
+                <input type="hidden" asp-for="DeviceId" class="form-control" />
+                <span class="form-control">@Model.Device.Serienumber</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.FullName" class="control-label"></label>
+                <input type="hidden" asp-for="StudentId" class="form-control" />
+                <span class="form-control">@Model.Student.FullName</span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ReturnedCase" /> @Html.DisplayNameFor(model => model.ReturnedCase)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ReturnedCharger" /> @Html.DisplayNameFor(model => model.ReturnedCharger)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="TerminationDate" class="control-label"></label>
+                <span class="form-control">@Model.TerminationDate</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" onclick="confirmTermination()" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    function confirmTermination() {
+        var returnedCase = document.getElementById("ReturnedCase").checked;
+        var returnedCharger = document.getElementById("ReturnedCharger").checked;
+
+        if (!returnedCase || !returnedCharger) {
+            if (!confirm("Niet alle benodigde onderdelen zijn teruggebracht. Weet u zeker dat u wilt doorgaan?")) {
+                document.getElementById("confirmationResult").value = "cancelled";
+                return false; // Voorkom dat het formulier wordt verzonden
+            }
+            else {
+                document.getElementById("confirmationResult").value = "confirmed";
+                return true; // Verzend het formulier als alle vereiste onderdelen zijn ingevuld
+            }
+        } else {
+            if (!confirm("Weet u zeker dat u de registratie wilt afronden?")) {
+                // Als de gebruiker bevestigt, verzend het formulier
+                document.getElementById("confirmationResult").value = "cancelled";
+                return false;
+            } else {
+                document.getElementById("confirmationResult").value = "confirmed";
+                return true; // Verzend het formulier als alle vereiste onderdelen zijn ingevuld
+            }
+        }
+    }
+</script>

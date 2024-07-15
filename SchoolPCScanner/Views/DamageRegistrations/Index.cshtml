@@ -1,0 +1,90 @@
+﻿@model IEnumerable<SchoolPCScanner.Models.DamageRegistration>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Schaderegistraties</h3>
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.Grade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Device)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DamageTypes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SendEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.Grade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Device.Serienumber)
+                </td>
+                <td>
+                    @foreach (var damageType in item.DamageTypes)
+                    {
+                        <div>- @damageType.TypeName</div>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SendEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td style="width: 300px;">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm">Details</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

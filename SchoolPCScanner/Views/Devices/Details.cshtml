@@ -1,0 +1,79 @@
+﻿@model SchoolPCScanner.Models.Device
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="grid2">
+    <div>
+        <h3>Toestel</h3>
+        <hr />
+        <dl class="grid">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Serienumber)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Serienumber)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Supplier)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Supplier.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsReserve)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsReserve)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Student)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Student != null)
+                {
+                    @Html.ActionLink(Model.Student.FullName, "Details", "Students", new { id = Model.Student.Id }, new { @class = "btn btn-primary btn-sm" })
+                }
+                else
+                {
+                    <span>Geen leerling gekoppeld</span>
+                }
+            </dd>
+            <dt class=col-sm-2">
+            @Html.DisplayNameFor(model => model.Barcode)
+            </dt>
+            <dd class=col-sm-10">
+                @Html.DisplayFor(model => model.Barcode)
+            </dd>
+            <dt class=col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class=col-sm-10">
+                    @Html.DisplayFor(model => model.Status)
+            </dd>
+        </dl>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+            @if (User.IsInRole("Administrator"))
+            {
+                <a asp-action="Index">Back to List</a>
+            }
+        </div>
+    </div>
+    <div>
+        <h3>Details per toestel</h3>
+        <hr />
+        <br />
+        <div>@Html.ActionLink("Schadegevallen", "RegistrationsByDevice", "DamageRegistrations", new { id = @Model.Id }, new { @class = "btn btn-primary" })</div>
+        <br />
+        <div>@Html.ActionLink("Stopzettingen", "TerminationRegistrationsByDevice", "TerminationRegistrations", new { id = @Model.Id }, new { @class = "btn btn-primary" })</div>
+
+    </div>
+</div>

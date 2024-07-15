@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SchoolPCScanner.Models.TerminationRegistration>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Alle stopzettingen</h3>
+</br>
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Device)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnedCase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnedCharger)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TerminationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCompleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Device.Serienumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Student.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnedCase)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReturnedCharger)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TerminationDate)
+                </td>
+                <td>
+                    @(item.IsCompleted ? "Afgerond" : "Niet afgerond")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm">Details</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,78 @@
+﻿@model SchoolPCScanner.Models.DamageRegistration
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h3>Bent u zeker dat u deze schaderegistratie wilt aanpassen?</h3>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Device.Status" class="control-label"></label>
+                <input type="hidden" asp-for="DeviceId" class="form-control" />
+                <span class="form-control">@Model.Device.Status</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegistrationDate" class="control-label"></label>
+                <span class="form-control">@Model.RegistrationDate</span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="StudentId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.FullName" class="control-label"></label>
+                <input type="hidden" asp-for="Student.FullName" class="form-control" />
+                <span class="form-control">@Model.Student.FullName</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Grade" class="control-label"></label>
+                <input type="hidden" asp-for="Student.Grade" class="form-control" />
+                <span class="form-control">@Model.Student.Grade</span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Device.Serienumber" class="control-label"></label>
+                <input type="hidden" asp-for="Device.Serienumber" class="form-control" />
+                <span class="form-control">@Model.Device.Serienumber</span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="DeviceId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group border">
+                <label class="control-label">DamageTypes</label>
+                @foreach (var damageType in Model.DamageTypes)
+                {
+                    <div>
+                        <input type="checkbox" name="SelectedDamageTypeIds" value="@damageType.Id">
+                        @Html.LabelFor(modelItem => damageType.TypeName, damageType.TypeName)
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <input asp-for="Note" class="form-control" />
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="sendEmailToAccounting" name="SendEmail" value="true">
+                <label for="sendEmailToAccounting">Stuur bericht naar boekhouding</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SchoolPCScanner.Models.Student>
+@{
+    ViewData["Title"] = "OphalenView";
+}
+<div class="text-center">
+    <h1>Ontlenen</h1>
+    <form asp-controller="Home" asp-action="OphalenView" method="get">
+        <h4>Zoek een leerling en scan een apparaat</h4>
+        <input type="text" placeholder="Naam van leerling" value="@ViewData["SearchStudent"]" name="searchItem" />
+        <input type="text" name="barcode" placeholder="Barcode van toestel" value="@ViewData["Barcode"]" />
+        <button type="submit" class="btn btn-primary">Zoeken</button>
+    </form>
+
+    <!-- Weergeef de apparaatstatus -->
+    @if (!string.IsNullOrEmpty(ViewData["Barcode"] as string))
+    {
+        <h4>Apparaat Status:</h4>
+        <div class="form-group">
+            <label class="control-label">Serienummer:</label>
+            <span id="device-status">@ViewData["DeviceSerienumber"]</span>
+            <br />
+            <label class="control-label">Status:</label>
+            <span id="device-status">@ViewData["DeviceStatus"]</span>
+        </div>
+    }
+    else
+    {
+        <p>Geen apparaat gescand.</p>
+    }
+
+    <!-- Weergeef de gevonden studenten -->
+    @if (!string.IsNullOrEmpty(ViewData["SearchStudent"] as string)) // Controleer of er een zoekopdracht is uitgevoerd
+    {
+        @if (Model != null && Model.Any())
+        {
+            <h4>Gevonden studenten:</h4>
+            <ul>
+                @foreach (var student in Model)
+                {
+                    <li>
+                        @student.Firstname @student.Lastname @student.Grade
+                        <form asp-controller="Home" asp-action="LinkStudentToDevice" method="post">
+                            <input type="hidden" name="studentId" value="@student.Id" />
+                            <input type="hidden" name="barcode" value="@ViewData["Barcode"]" />
+                            <button class="btn btn-primary" type="submit">Koppel</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Geen studenten gevonden.</p>
+        }
+    }
+    
+</div>
+

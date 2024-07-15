@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SchoolPCScanner.Models.Device>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<!-- Voeg de Bootstrap CSS toe aan de pagina -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+<h3>Toestellen</h3>
+</br>
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </p>
+}
+<!-- Zoekbalk -->
+<form method="get" asp-action="Index">
+    <input type="text" placeholder="Zoek op naam" value="@ViewData["SearchDevice"]" name="searchItem" />
+    <button type="submit" class="btn btn-primary">Zoeken</button>
+    <button id="helpButton" class="btn btn-outline-secondary btn-sm" type="button" style="margin-bottom: 35px;" data-toggle="modal" data-target="#helpModal" data-placement="top" title="Klik hier voor hulp">
+        <i class="fas fa-question-circle"></i>
+    </button>
+    @await Html.PartialAsync("_HelpModal")
+
+
+    <a asp-action="Index">Back to list</a>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Serienumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Supplier.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsReserve)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Barcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Serienumber)
+                </td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Student.FullName)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Supplier.Name)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsReserve)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Barcode)
+                </td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </th>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-success btn-sm">Details</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<!-- Voeg de Bootstrap JavaScript toe aan de pagina -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.5.4/umd/popper.min.js" integrity="sha384-tInGPunCnCEfD7h4Fdzbml7Wtsb6td3H9y4zrXD6Tf+7voG0WxVlTK1lBq6Iz3Iv" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shCk+6Bd5WfwGodhC4f2h1L4a2igq5ksxh6Z+" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#helpButton').click(function () {
+            $('#helpModal').modal('show');
+        });
+    });
+</script>

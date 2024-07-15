@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "BinnenBrengenView";
+}
+<div class="text-center">
+
+    <h1>Binnenbrengen</h1>
+    <form asp-controller="Home" asp-action="DeviceIndex" method="get">
+
+        <h4>Scan het toestel</h4>
+        <input type="text" name="barcode" placeholder="Barcode">
+        <br />
+        <h4>Bepaal een reden</h4>
+        <br />
+        <div class="form-group">
+            <form>
+                @foreach (var status in Enum.GetValues(typeof(DeviceStatus)))
+               {
+                    switch ((DeviceStatus)status)
+                    {
+                        case DeviceStatus.Damage:
+                            <button type="submit" name="Status" value="@status" class="btn btn-primary">Schade</button>
+                            break;
+                        case DeviceStatus.Termination:
+                            <button type="submit" name="Status" value="@status" class="btn btn-primary">Stopzetting</button>
+                            break;
+                    }
+                }
+            </form>
+        </div>
+    </form>
+</div>
+
+
+
+
+

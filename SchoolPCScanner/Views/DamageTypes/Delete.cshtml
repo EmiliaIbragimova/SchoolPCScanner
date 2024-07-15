@@ -1,0 +1,24 @@
+﻿@model SchoolPCScanner.Models.DamageType
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3>Bent u zeker dat u deze type schade wilt verwijderen?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TypeName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TypeName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

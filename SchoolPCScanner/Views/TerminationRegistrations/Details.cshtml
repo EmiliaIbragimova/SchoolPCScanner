@@ -1,0 +1,75 @@
+﻿@model SchoolPCScanner.Models.TerminationRegistration
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h3>Stopzetting registratie</h3>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Device)
+        </dt>
+        <dd class = "col-sm-10">
+            @* @Html.DisplayFor(model => model.Device.Serienumber) *@
+            @if (Model.Device != null)
+            {
+                @Html.ActionLink(Model.Device.Serienumber, "Details", "Devices", new { id = Model.Device.Id }, new { @class = "btn btn-primary btn-sm" })
+            }
+            else
+            {
+                <span>Geen toestel gevonden</span>
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Student.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Student != null)
+            {
+                @Html.ActionLink(Model.Student.FullName, "Details", "Students", new { id = Model.Student.Id }, new { @class = "btn btn-primary btn-sm" })
+            }
+            else
+            {
+                <span>Geen leerling gekoppeld</span>
+            }
+            @* @Html.DisplayFor(model => model.Student.FullName) *@
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReturnedCase)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReturnedCase)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReturnedCharger)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReturnedCharger)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TerminationDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TerminationDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsCompleted)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IsCompleted)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,44 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 20px;
+}
+
+.deviceStatus {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.even-width-buttons .btn-primary {
+    width: calc(30% - 50px); /* Verdeel de breedte in twee delen en voeg wat ruimte toe tussen de knoppen */
+    margin-right: 10px; /* Voeg wat ruimte toe tussen de knoppen */
+}

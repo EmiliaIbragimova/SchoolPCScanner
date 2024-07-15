@@ -1,0 +1,83 @@
+﻿@model SchoolPCScanner.Models.Student
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h3>Leerling</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Grade)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Grade)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+        <dd class="col-sm-10">
+            @if(Model.IsActive)
+            {
+                <span>&#x2714;</span> <!-- Checkmark symbool -->
+            }
+            else
+            {
+                <span style="color: red;">&#10007;</span> <!-- Rood kruisje symbool -->
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IsNew)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.IsNew)
+            {
+                <span>&#x1F195;</span> <!-- Nieuw symbool -->
+            }
+            else if (!Model.IsNew && Model.IsActive)
+            {
+                <span>&#x2714;</span> <!-- Checkmark symbool -->
+            }
+            else if (!Model.IsActive)
+            {
+                <span style="color: red;">&#10007;</span> <!-- Rood kruisje symbool -->
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Devices)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Devices != null && Model.Devices.Any())
+            {
+                @foreach (var device in Model.Devices)
+                {
+                    <p class="col-sm-10">
+                        @Html.ActionLink(device.Serienumber, "Details", "Devices", new { id = device.Id }, new { @class = "btn btn-primary btn-sm" })
+                </p>
+                }
+            }
+            else
+            {
+                <p>Geen apparaten beschikbaar</p>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+  @*   <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> | *@
+    <a asp-action="Index">Back to List</a>
+</div>
